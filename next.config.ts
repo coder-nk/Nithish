@@ -1,11 +1,13 @@
 import type { NextConfig } from "next";
 
 const isExport = process.env.NEXT_EXPORT === "1";
+const isGitHubPages = process.env.GITHUB_PAGES === "1";
+const basePath = isGitHubPages ? "/Nithish" : "";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Static export is optional (NEXT_EXPORT=1 npm run build) for CDN hosting.
-  ...(isExport ? { output: "export", images: { unoptimized: true } } : {}),
+  ...(isExport ? { output: "export", images: { unoptimized: true }, basePath } : {}),
   transpilePackages: ["three"],
   experimental: {
     optimizePackageImports: ["@react-three/drei", "motion", "gsap"],
